@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: App
+Bundle-SymbolicName: am.app; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: am.app.rcp.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.e4.ui.workbench.addons.swt;bundle-version="0.10.1",
+ org.eclipse.ui.console;bundle-version="3.5.100"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

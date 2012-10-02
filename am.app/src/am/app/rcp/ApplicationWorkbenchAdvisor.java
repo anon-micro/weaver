@@ -1,0 +1,24 @@
+package am.app.rcp;
+
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+import am.app.perspectives.DefaultPerspective;
+
+public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+	
+	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
+			IWorkbenchWindowConfigurer configurer) {
+		return new ApplicationWorkbenchWindowAdvisor(configurer);
+	}
+
+	public String getInitialWindowPerspectiveId() {		
+		return DefaultPerspective.ID;
+				
+	}
+
+	public void postStartup(){
+		super.postStartup();		
+	}
+}

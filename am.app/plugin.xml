@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="am.app"
+         name="Greenfield RCP"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="am.app.rcp.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Default"
+            class="am.app.perspectives.DefaultPerspective"
+            id="am.app.perspectives.Default">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Table List"
+            class="am.app.views.TableListView"
+            id="am.app.views.TableList">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="am.app.perspectives.Default">
+         <showInPart
+               id="am.app.views.TableList">
+         </showInPart>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="am.app.editors.TableEditor"
+            default="false"
+            id="am.app.editors.Table"
+            name="Table Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="am.app.commands.OpenTableEditor"
+            name="Open Editor">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="am.app.commands.OpenTableEditorCommand"
+            commandId="am.app.commands.OpenTableEditor">
+      </handler>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="am.app"
+            name="Greenfield RCP Product">
+         <property
+               name="appName"
+               value="Greenfield RCP Product">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
