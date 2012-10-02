@@ -1,11 +1,11 @@
-package am.app.rcp;
+package am.weaver.rcp;
 
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import am.app.DataSource;
+import am.weaver.datasource.DataSource;
 
 /**
  * The activator class controls the plug-in life cycle

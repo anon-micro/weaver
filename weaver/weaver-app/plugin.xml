@@ -8,7 +8,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="am.app.rcp.Application">
+               class="am.weaver.rcp.Application">
          </run>
       </application>
    </extension>
@@ -16,24 +16,24 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="Default"
-            class="am.app.perspectives.DefaultPerspective"
-            id="am.app.perspectives.Default">
+            class="am.weaver.perspectives.DefaultPerspective"
+            id="am.weaver.perspectives.Default">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
             name="Table List"
-            class="am.app.views.TableListView"
-            id="am.app.views.TableList">
+            class="am.weaver.views.TableListView"
+            id="am.weaver.views.TableList">
       </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="am.app.perspectives.Default">
+            targetID="am.weaver.perspectives.Default">
          <showInPart
-               id="am.app.views.TableList">
+               id="am.weaver.views.TableList">
          </showInPart>
       </perspectiveExtension>
    </extension>
@@ -53,24 +53,24 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="am.app.editors.TableEditor"
+            class="am.weaver.editors.TableEditor"
             default="false"
-            id="am.app.editors.Table"
+            id="am.weaver.editors.Table"
             name="Table Editor">
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            id="am.app.commands.OpenTableEditor"
+            id="am.weaver.commands.OpenTableEditor"
             name="Open Editor">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="am.app.commands.OpenTableEditorCommand"
-            commandId="am.app.commands.OpenTableEditor">
+            class="am.weaver.commands.OpenTableEditorCommand"
+            commandId="am.weaver.commands.OpenTableEditor">
       </handler>
    </extension>
    <extension

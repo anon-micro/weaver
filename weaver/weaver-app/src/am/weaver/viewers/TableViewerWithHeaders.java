@@ -1,4 +1,4 @@
-package am.app.viewers;
+package am.weaver.viewers;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;

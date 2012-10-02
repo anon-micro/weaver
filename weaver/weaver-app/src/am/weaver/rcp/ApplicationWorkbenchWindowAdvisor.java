@@ -1,4 +1,4 @@
-package am.app.rcp;
+package am.weaver.rcp;
 
 
 import java.io.PrintStream;
@@ -20,7 +20,7 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
-import am.app.views.TableListView;
+import am.weaver.views.TableListView;
 
 
 

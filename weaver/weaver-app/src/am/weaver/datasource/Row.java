@@ -1,4 +1,4 @@
-package am.app;
+package am.weaver.datasource;
 
 import java.util.HashMap;
 import java.util.Map;

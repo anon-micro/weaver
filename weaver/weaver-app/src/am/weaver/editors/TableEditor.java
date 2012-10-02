@@ -1,4 +1,4 @@
-package am.app.editors;
+package am.weaver.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -15,10 +15,10 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
-import am.app.Row;
-import am.app.Table;
-import am.app.rcp.Activator;
-import am.app.viewers.TableViewerWithHeaders;
+import am.weaver.datasource.Row;
+import am.weaver.datasource.Table;
+import am.weaver.rcp.Activator;
+import am.weaver.viewers.TableViewerWithHeaders;
 
 
 public class TableEditor extends EditorPart {

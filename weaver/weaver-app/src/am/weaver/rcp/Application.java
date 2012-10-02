@@ -1,4 +1,4 @@
-package am.app.rcp;
+package am.weaver.rcp;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;

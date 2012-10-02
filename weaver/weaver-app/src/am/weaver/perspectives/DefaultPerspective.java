@@ -1,4 +1,4 @@
-package am.app.perspectives;
+package am.weaver.perspectives;
 
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -7,7 +7,7 @@ import org.eclipse.ui.console.IConsoleConstants;
 
 
 
-import am.app.views.TableListView;
+import am.weaver.views.TableListView;
 
 public class DefaultPerspective implements IPerspectiveFactory {
 	

@@ -1,4 +1,4 @@
-package am.app.editors;
+package am.weaver.editors;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;

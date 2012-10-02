@@ -1,4 +1,4 @@
-package am.app;
+package am.weaver.datasource;
 
 public class DataSourceTest {
 

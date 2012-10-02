@@ -1,4 +1,4 @@
-package am.app.views;
+package am.weaver.views;
 
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -10,8 +10,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 
-import am.app.DataSource;
-import am.app.commands.OpenTableEditorCommand;
+import am.weaver.commands.OpenTableEditorCommand;
+import am.weaver.datasource.DataSource;
 
 
 public class TableListView extends ViewPart {

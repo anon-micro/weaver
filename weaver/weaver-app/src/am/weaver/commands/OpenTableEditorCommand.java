@@ -1,4 +1,4 @@
-package am.app.commands;
+package am.weaver.commands;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -10,9 +10,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import am.app.editors.TableEditor;
-import am.app.editors.TableEditorInput;
-import am.app.views.TableListView;
+import am.weaver.editors.TableEditor;
+import am.weaver.editors.TableEditorInput;
+import am.weaver.views.TableListView;
 
 
 public class OpenTableEditorCommand extends AbstractHandler{

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: App
 Bundle-SymbolicName: weaver-app; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: am.app.rcp.Activator
+Bundle-Activator: am.weaver.rcp.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.e4.ui.workbench.addons.swt;bundle-version="0.10.1",
