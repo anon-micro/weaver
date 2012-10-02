@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>am.app.product</name>
+	<name>weaver-product</name>
 	<comment></comment>
 	<projects>
-		<project>am.app</project>
+		<project>weaver-app</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>

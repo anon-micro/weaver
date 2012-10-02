@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>am.app.build</groupId>
-  <artifactId>am.app.build</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>anon-micro</groupId>
+  <artifactId>weaver</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <properties>
@@ -22,8 +22,8 @@
   
   	
   <modules>
-    <module>../am.app</module>
-	<module>../am.app.product</module>	
+	<module>weaver-app</module>
+	<module>weaver-product</module>	
   </modules>
   
   <build>
@@ -65,10 +65,10 @@
           <configuration>
       		<target>
          		<artifact>
-            		<groupId>am.app.buid.target</groupId>
+            		<groupId>weaver.target</groupId>
             		<artifactId>target-definition</artifactId>
             		<version>1.0.0-SNAPSHOT</version>
-            		<classifier>am.app.build.target</classifier>
+            		<classifier>weaver.target</classifier>
          		</artifact>
       		</target>
    		  </configuration>

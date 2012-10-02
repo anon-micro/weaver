@@ -3,8 +3,8 @@
 <plugin>
 
    <extension
-         id="am.app"
-         name="Greenfield RCP"
+         id="weaver-app"
+         name="Weaver"
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
@@ -77,11 +77,11 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="am.app"
-            name="Greenfield RCP Product">
+            application="weaver-app"
+            name="Weaver Product">
          <property
                name="appName"
-               value="Greenfield RCP Product">
+               value="Weaver Product">
          </property>
       </product>
    </extension>
