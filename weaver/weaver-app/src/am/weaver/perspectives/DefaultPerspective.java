@@ -11,7 +11,7 @@ import am.weaver.views.TableListView;
 
 public class DefaultPerspective implements IPerspectiveFactory {
 	
-	public static final String ID = "am.app.perspectives.Default";
+	public static final String ID = "am.weaver.perspectives.Default";
 	
 	public void createInitialLayout(IPageLayout layout) {				
 		String editorArea = layout.getEditorArea();

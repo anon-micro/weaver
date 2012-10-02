@@ -16,7 +16,7 @@ import am.weaver.views.TableListView;
 
 
 public class OpenTableEditorCommand extends AbstractHandler{
-	public static final String ID = "am.app.commands.OpenTableEditor";
+	public static final String ID = "am.weaver.commands.OpenTableEditor";
 			
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

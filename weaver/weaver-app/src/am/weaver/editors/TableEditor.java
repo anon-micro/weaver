@@ -19,7 +19,7 @@ import am.weaver.viewers.TableViewerWithHeaders;
 
 public class TableEditor extends EditorPart {
 
-	public static final String ID = "am.app.editors.Table";
+	public static final String ID = "am.weaver.editors.Table";
 
 	private Table table;
 	private TableEditorInput input;

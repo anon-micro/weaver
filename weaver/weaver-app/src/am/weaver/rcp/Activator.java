@@ -13,7 +13,7 @@ import am.weaver.datasource.DataSource;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "am.app"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "am.weaver"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;	

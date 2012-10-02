@@ -15,7 +15,7 @@ import am.weaver.datasource.DataSource;
 
 
 public class TableListView extends ViewPart {
-	public static final String ID = "am.app.views.TableList";
+	public static final String ID = "am.weaver.views.TableList";
 
 	private ListViewer viewer;
 				
