@@ -1,7 +1,11 @@
 package am.weaver.viewers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -11,6 +15,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+
+import am.weaver.datasource.Row;
+
 
 public class TableViewerWithHeaders {
 
@@ -43,10 +51,49 @@ public class TableViewerWithHeaders {
 		rows.setInput(input);
 		table.setInput(input);
 
-		createRowHeaders();
+		//createRowHeaders();
 		// createSpacer();
 	}
-
+	
+	
+	public Collection<Row> getSelection(){		
+		ArrayList<Row> selection = new ArrayList<Row>();
+		for(TableItem item: table.getTable().getSelection()){			
+			selection.add((Row)item.getData());
+		}		
+		return selection;
+	}
+	
+	
+	public void refresh(){
+		rows.refresh();
+		table.refresh();
+	}
+	
+	public void updateElement(Object element) {
+		rows.update(element, null);
+		table.update(element, null);
+	}
+	
+	
+	public boolean isCellVisible(int row, int col){
+		Table tableWidget = null;
+		
+		if(col < getRows().getColumnCount()){
+			tableWidget = getRows();
+		}
+		else{
+			tableWidget = getTable();
+			col = col - getRows().getColumnCount();
+		}
+		
+		Rectangle tableArea = tableWidget.getClientArea();
+		Rectangle columnArea = tableWidget.getItem(row).getBounds(col);
+		
+		return tableArea.intersects(columnArea);
+	}
+	
+	
 	private void createViewers(Composite parent) {
 		parent.setLayout(new FillLayout());
 
@@ -61,7 +108,8 @@ public class TableViewerWithHeaders {
 		table = new TableViewer(parent, SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
 		table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));
 		table.getTable().setHeaderVisible(true);
-
+						
+		
 		// Make selection the same in both tables
 		rows.getTable().addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
@@ -74,7 +122,14 @@ public class TableViewerWithHeaders {
 				rows.getTable().setSelection(table.getTable().getSelectionIndices());
 			}
 		});
-
+		
+//		rows.getTable().addListener(SWT.MeasureItem, new Listener() {
+//			   public void handleEvent(Event event) {
+//			      // height cannot be per row so simply set
+//			      event.height = 40;
+//			   }
+//			});
+		
 		ScrollBar vBarRight = table.getTable().getVerticalBar();
 		vBarRight.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
@@ -85,8 +140,8 @@ public class TableViewerWithHeaders {
 		parent.setBackground(rows.getTable().getBackground());
 	}
 
-	private void createRowHeaders() {
-		// for (TableItem item : rows.getTable().getItems()) {
+	//private void createRowHeaders() {
+		//for (TableItem item : table.getTable().getItems()) {			
 		//
 		// TableEditor editor = new TableEditor (rows.getTable());
 		// Button button = new Button (rows.getTable(), SWT.PUSH | SWT.FLAT);
@@ -97,8 +152,8 @@ public class TableViewerWithHeaders {
 		// editor.grabHorizontal = true;
 		// editor.setEditor (button, item, 0);
 		//
-		// }
-	}
+		//}
+	//}
 
 	@SuppressWarnings("unused")
 	private void createSpacer() {

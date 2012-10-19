@@ -65,12 +65,28 @@
             id="am.weaver.commands.OpenTableEditor"
             name="Open Editor">
       </command>
+      <command
+            id="am.weaver.commands.NewTableElement"
+            name="New Table Element">
+      </command>
+      <command
+            id="am.weaver.commands.DeleteTableElement"
+            name="Delete Table Element">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="am.weaver.commands.OpenTableEditorCommand"
             commandId="am.weaver.commands.OpenTableEditor">
+      </handler>
+      <handler
+            class="am.weaver.commands.NewTableElementCommand"
+            commandId="am.weaver.commands.NewTableElement">
+      </handler>
+      <handler
+            class="am.weaver.commands.DeleteTableElementCommand"
+            commandId="am.weaver.commands.DeleteTableElement">
       </handler>
    </extension>
    <extension
@@ -84,6 +100,21 @@
                value="Weaver Product">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="am.weaver.commands.NewTableElement"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+I">
+      </key>
+      <key
+            commandId="am.weaver.commands.DeleteTableElement"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+D">
+      </key>
    </extension>
 
 </plugin>

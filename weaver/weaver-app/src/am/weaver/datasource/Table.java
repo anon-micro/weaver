@@ -2,6 +2,7 @@ package am.weaver.datasource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,4 +30,7 @@ public class Table {
 	public List<String> getColumns() { return Collections.unmodifiableList(columns); }
 
 	public List<Row> getRows() { return Collections.unmodifiableList(rows); }
+	
+	public void addRow(Row row) {rows.add(row); }
+	public void deleteRows(Collection<Row> rows) {this.rows.removeAll(rows); }
 }

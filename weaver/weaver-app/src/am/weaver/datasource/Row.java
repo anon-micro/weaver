@@ -13,5 +13,6 @@ public class Row {
 			map.put(columns[i], data[i]);
 	}
 	
-	public Object get(String key) { return map.get(key); }
+	public Object get(String key) { return map.get(key); }	
+	public void set(String key, Object value) {map.put(key, value); }
 }

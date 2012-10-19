@@ -2,19 +2,18 @@ package am.weaver.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
-import am.weaver.datasource.Row;
 import am.weaver.datasource.Table;
 import am.weaver.rcp.Activator;
+import am.weaver.viewers.TableViewerEditableColumn;
 import am.weaver.viewers.TableViewerWithHeaders;
 
 public class TableEditor extends EditorPart {
@@ -24,41 +23,27 @@ public class TableEditor extends EditorPart {
 	private Table table;
 	private TableEditorInput input;
 	private TableViewerWithHeaders viewer;
+	
 
-	class LabelProvider extends ColumnLabelProvider {
-
-		private String columnId;
-
-		public LabelProvider(String columnId) {
-			this.columnId = columnId;
-		}
-
-		@Override
-		public String getText(Object element) {
-			Row row = (Row) element;
-			return row.get(columnId).toString();
-		}
-
-	}
-
-	public void createColumns() {
+	private void createColumns() {
 
 		for (int i = 0; i < table.getColumns().size(); i++) {
 			if (i == 0) {
-				TableViewerColumn viewerColumn = new TableViewerColumn(viewer.getRowsViewer(),
-						SWT.NONE);
-				viewerColumn.setLabelProvider(new LabelProvider(table.getColumns().get(i)));
+				TableViewerEditableColumn viewerColumn = new TableViewerEditableColumn(viewer.getRowsViewer(),
+						SWT.NONE, table.getColumns().get(i));												
+				
 				TableColumn col = viewerColumn.getColumn();
-
 				col.setText(table.getColumns().get(i));
 				col.setWidth(100);
 				col.setResizable(false);
-			} else {
-				TableViewerColumn viewerColumn = new TableViewerColumn(viewer.getTableViewer(),
-						SWT.NONE);
-				viewerColumn.setLabelProvider(new LabelProvider(table.getColumns().get(i)));
-				TableColumn col = viewerColumn.getColumn();
 
+			} else {				
+				TableViewerEditableColumn viewerColumn = new TableViewerEditableColumn(viewer.getTableViewer(),
+						SWT.NONE, table.getColumns().get(i));				
+				
+				viewerColumn.setEditable(true);
+				
+				TableColumn col = viewerColumn.getColumn();
 				col.setText(table.getColumns().get(i));
 				col.setWidth(100);
 				col.setResizable(true);
@@ -114,5 +99,30 @@ public class TableEditor extends EditorPart {
 	public void setFocus() {
 		viewer.getTableViewer().getControl().setFocus();
 	}
-
+	
+	
+	public TableViewerWithHeaders getViewer(){
+		return viewer;
+	}
+	
+	public Table getTable(){
+		return this.table;
+	}
+	
+	/*
+	 * Updates the whole row as a row is the only element of the table.
+	 * The table widget will ask each column to update the content of its cell
+	 * in the given row.  
+	 */
+	public void cellUpdated(int row){
+		viewer.updateElement(table.getRows().get(row));
+	}
+	
+	public boolean isVisible(){
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().isPartVisible(this);
+	}
+	
+	public boolean isCellVisible(int row, int col){
+		return this.isVisible() && viewer.isCellVisible(row, col);				
+	}
 }
