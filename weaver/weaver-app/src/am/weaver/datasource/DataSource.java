@@ -25,9 +25,16 @@ public class DataSource {
 		return tables.get(tableName); 
 	}
 	
-	private static final String[] elementColumns = new String[] {
-			"Atomic no.", "Name", "Symbol", "Group", "Period", "Block",
-			"State at STP", "Occurrence", "Description"
+	private static final ColumnDefinition[] elementColumns = new ColumnDefinition[] {
+			new ColumnDefinition("Atomic no.", "", ColumnType.Number),
+			new ColumnDefinition("Name", "", ColumnType.String),
+			new ColumnDefinition("Symbol", "", ColumnType.String),
+			new ColumnDefinition("Group",  "", ColumnType.Number),
+			new ColumnDefinition("Period", "", ColumnType.Number), 
+			new ColumnDefinition("Block", "", ColumnType.String),
+			new ColumnDefinition("State at STP", "am.weaver.datasource.enums.State", ColumnType.Enum), 
+			new ColumnDefinition("Occurrence", "am.weaver.datasource.enums.Occurrence", ColumnType.Enum),
+			new ColumnDefinition("Description", "", ColumnType.String)
 	};
 	
 	private static final Object[] elementData = new Object[] {
@@ -136,8 +143,11 @@ public class DataSource {
 		"103", "Lawrencium", "Lr", "3", "7", "d", "Solid", "Synthetic", "Actinide",
 	};
 	
-	private static final String[] atomicTableColumns = new String[] {
-			"Period", "1",  "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "10", "11", "12", "13", "14", "15", "16", "17", "18"
+	private static final ColumnDefinition[] atomicTableColumns = new ColumnDefinition[] {
+			new ColumnDefinition("Period"), new ColumnDefinition("1"), new ColumnDefinition("2"), new ColumnDefinition("3"), new ColumnDefinition("4"), 
+			new ColumnDefinition("5"), new ColumnDefinition("6"), new ColumnDefinition("7"), new ColumnDefinition("8"), new ColumnDefinition("9"), 
+			new ColumnDefinition("10"), new ColumnDefinition("11"), new ColumnDefinition("12"), new ColumnDefinition("13"), new ColumnDefinition("14"),
+			new ColumnDefinition("15"), new ColumnDefinition("16"), new ColumnDefinition("17"), new ColumnDefinition("18")
 	};
 	
 	private static final Object[] atomicTableData = new Object[] {
@@ -152,8 +162,12 @@ public class DataSource {
 			"Actinides",   "  ", "  ", "Ac", "Th", "Pa", "U",  "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "  ",
 	};
 	
-	private static final String[] countryColumns = new String[] {
-		"Name", "Area", "Population", "Pop Density", "Capital"
+	private static final ColumnDefinition[] countryColumns = new ColumnDefinition[] {
+		new ColumnDefinition("Name", "", ColumnType.String),
+		new ColumnDefinition("Area", "", ColumnType.Number),
+		new ColumnDefinition("Population", "", ColumnType.Number),
+		new ColumnDefinition("Pop Density", "", ColumnType.Number),
+		new ColumnDefinition("Capital", "", ColumnType.String)
 	};
 	
 	private static final Object[] countryData = new Object[] {
@@ -177,7 +191,7 @@ public class DataSource {
 		"Germany", "357,021", "83,251,851", "233.2", "Berlin",
 		"Greece", "131,940", "10,645,343", "80.7", "Athens",
 		"Hungary", "93,030", "10,075,034", "108.3", "Budapest",
-		"Iceland", "103,000", "307,261", "2.7", "Reykjav’k",
+		"Iceland", "103,000", "307,261", "2.7", "Reykjavk",
 		"Ireland", "70,280", "4,234,925", "60.3", "Dublin",
 		"Italy", "301,230", "58,751,711", "191.6", "Rome",
 		"Kazakhstan", "2,724,900", "15,217,711", "5.6", "Astana",

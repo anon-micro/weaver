@@ -33,10 +33,9 @@ public class NewTableElementCommand extends AbstractHandler{
 			 */
 			
 			if(dialog.open() == Window.OK){				
-				String[] columns = new String[table.getColumns().size()];
 				Object[] data = new Object[table.getColumns().size()];
 				data[0] = dialog.getCellValue();
-				table.addRow(new Row(table.getColumns().toArray(columns), data));
+				table.addRow(data);
 				
 				editor.getViewer().refresh();
 			}
