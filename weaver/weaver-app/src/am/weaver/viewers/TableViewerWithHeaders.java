@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import am.weaver.datasource.Row;
@@ -68,6 +69,20 @@ public class TableViewerWithHeaders {
 	public void refresh(){
 		rows.refresh();
 		table.refresh();
+	}
+	
+	public void removeColumns(){
+		TableColumn[] columns = table.getTable().getColumns();
+		int count = columns.length;
+		for(int i = 0; i< count; i++){
+			columns[i].dispose();
+		}
+		
+		columns = rows.getTable().getColumns();
+		count = columns.length;
+		for(int i = 0; i< count; i++){
+			columns[i].dispose();
+		}
 	}
 	
 	public void updateElement(Object element) {

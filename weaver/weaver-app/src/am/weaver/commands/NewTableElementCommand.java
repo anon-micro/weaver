@@ -8,9 +8,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import am.weaver.datasource.DefinitionTable;
 import am.weaver.datasource.Row;
 import am.weaver.datasource.Table;
 import am.weaver.dialogs.NewTableElementDialog;
+import am.weaver.editors.DataTableEditor;
 import am.weaver.editors.TableEditor;
 
 public class NewTableElementCommand extends AbstractHandler{
@@ -23,7 +25,7 @@ public class NewTableElementCommand extends AbstractHandler{
 		
 		if(part instanceof TableEditor){
 			TableEditor editor = (TableEditor)part;
-			Table table = editor.getTable();
+			Table table = editor.getActiveTable();
 			
 			NewTableElementDialog dialog = new NewTableElementDialog(part.getSite().getShell(),
 					table.getColumns().get(0));
@@ -37,9 +39,14 @@ public class NewTableElementCommand extends AbstractHandler{
 				data[0] = dialog.getCellValue();
 				table.addRow(data);
 				
-				editor.getViewer().refresh();
+				if(table instanceof DefinitionTable){
+					editor.getDefinitionTableEditor().getViewer().refresh();
+					editor.getDataTableEditor().updateViewer();					
+				}
+				else {
+					editor.getDataTableEditor().getViewer().refresh();
+				}
 			}
-						
 		}
 		
 		

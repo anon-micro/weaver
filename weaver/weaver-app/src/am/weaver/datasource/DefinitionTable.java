@@ -8,21 +8,28 @@ import java.util.Collections;
 import java.util.List;
 
 public class DefinitionTable extends Table {
-
-	static final DefinitionTable DEF_DEF_TABLE =
-			new DefinitionTable("DefinitionTable-definition", null,
-					new ColumnDefinition[] {
-						new ColumnDefinition(ColumnDefinition.NAME, "", ColumnType.String),
-						new ColumnDefinition(ColumnDefinition.DEFINITION, "", ColumnType.Script),
-						new ColumnDefinition(ColumnDefinition.TYPE, "am.weaver.datasource.ColumnType", ColumnType.Enum)
-			});
-
-	private final List<String> columnNames = new ArrayList<String>();
+			
+	static final DefinitionTable DEF_DEF_TABLE;			
 	
+	static {
+		DEF_DEF_TABLE = new DefinitionTable("DefinitionTable-definition", null,
+				new ColumnDefinition[] {
+				new ColumnDefinition(ColumnDefinition.NAME, "", ColumnType.String),
+				new ColumnDefinition(ColumnDefinition.DEFINITION, "", ColumnType.Script),
+				new ColumnDefinition(ColumnDefinition.TYPE, "am.weaver.datasource.ColumnType", ColumnType.Enum)
+		});
+		
+		for(Row r: DEF_DEF_TABLE.getRows()){
+			r.setDefinitionTable(DEF_DEF_TABLE);
+		}
+	}
+	
+	private final List<String> columnNames = new ArrayList<String>();
+		
 	DefinitionTable(String tableName, DefinitionTable defTable, ColumnDefinition[] columns) {
-		super(tableName, null);
+		super(tableName, defTable);
 		for(ColumnDefinition col : columns)
-			addRow(col);
+			addRow(col);				
 	}
 
 	public DefinitionTable(String tableName, ColumnDefinition[] columns) {
@@ -30,7 +37,7 @@ public class DefinitionTable extends Table {
 	}
 
 	public List<String> getColumnNames() { return Collections.unmodifiableList(columnNames); }
-	
+			
 	public String getColumnDefinition(String columnName) {
 		for(Row row : getRows())
 			if(columnName.equals(row.get(ColumnDefinition.NAME)))
@@ -74,6 +81,8 @@ public class DefinitionTable extends Table {
 			Class<E> cl = (Class<E>) Class.forName(enumClassName);
 			return Enum.valueOf(cl, s);
 	}
+	
+	
 	
 	@Override
 	public void addRow(Row row) {

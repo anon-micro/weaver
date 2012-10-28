@@ -33,4 +33,8 @@ public class Row {
 	public void setDefinitionTable(DefinitionTable definitionTable) {
 		this.definitionTable = definitionTable;
 	}
+	
+	public DefinitionTable getDefinitionTable() {
+		return definitionTable;
+	}
 }

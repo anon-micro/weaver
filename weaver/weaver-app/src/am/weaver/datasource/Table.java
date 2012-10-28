@@ -28,13 +28,18 @@ public class Table {
 		this.rows = new ArrayList<Row>();
 	}
 	
+	public DefinitionTable getDefinitionTable(){ return definitionTale; }
+	
 	public String getTableName() { return tableName; }
 
 	public List<String> getColumns() { return definitionTale.getColumnNames(); }
 
 	public List<Row> getRows() { return Collections.unmodifiableList(rows); }
 	
-	public void addRow(Row row) { rows.add(row); }
+	public void addRow(Row row) { 
+		rows.add(row);
+		row.setDefinitionTable(definitionTale);
+	}
 	
 	public void addRow(Object[] data) {
 		addRow(new Row(definitionTale, data));

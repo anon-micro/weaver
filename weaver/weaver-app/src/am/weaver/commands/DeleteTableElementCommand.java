@@ -6,7 +6,9 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import am.weaver.datasource.DefinitionTable;
 import am.weaver.datasource.Table;
+import am.weaver.editors.DataTableEditor;
 import am.weaver.editors.TableEditor;
 
 public class DeleteTableElementCommand extends AbstractHandler{
@@ -19,10 +21,17 @@ public class DeleteTableElementCommand extends AbstractHandler{
 		
 		if(part instanceof TableEditor){
 			TableEditor editor = (TableEditor)part;
-			Table table = editor.getTable();
+			Table table = editor.getActiveTable();
 			
-			table.deleteRows(editor.getViewer().getSelection());
-			editor.getViewer().refresh();
+			table.deleteRows(editor.getActiveViewer().getSelection());
+			
+			if(table instanceof DefinitionTable){
+				editor.getDefinitionTableEditor().getViewer().refresh();
+				editor.getDataTableEditor().updateViewer();
+			}
+			else {
+				editor.getDataTableEditor().getViewer().refresh();
+			}
 		}
 		
 		return null;
