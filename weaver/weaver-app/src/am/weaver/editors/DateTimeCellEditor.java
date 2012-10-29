@@ -15,9 +15,13 @@ public class DateTimeCellEditor extends CellEditor{
 	
 	private DateTime control;
 	
+	public DateTimeCellEditor(Composite parent) {
+		super(parent, SWT.DATE | SWT.SHORT | SWT.DROP_DOWN);
+	}
+	
 	@Override
 	protected Control createControl(Composite parent) {			
-		control = new DateTime(parent, SWT.DATE | SWT.SHORT | SWT.DROP_DOWN);
+		control = new DateTime(parent, this.getStyle());
 		return control;
 	}
 
@@ -40,11 +44,13 @@ public class DateTimeCellEditor extends CellEditor{
 	@Override
 	protected void doSetValue(Object value) {				
 		Calendar cal = Calendar.getInstance();
-		cal.setTime((Date)value);
-		
+		if(value != null){
+			cal.setTime((Date)value);
+		}		
 		control.setDay(cal.get(Calendar.DAY_OF_MONTH));
 		control.setMonth(cal.get(Calendar.MONTH));
-		control.setYear(cal.get(Calendar.YEAR));		
+		control.setYear(cal.get(Calendar.YEAR));
+				
 	}
 
 }

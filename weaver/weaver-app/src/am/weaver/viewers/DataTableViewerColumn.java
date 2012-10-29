@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.ViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.TableColumn;
 
+import am.weaver.datasource.ColumnDefinition;
 import am.weaver.datasource.ColumnType;
 import am.weaver.datasource.Row;
 import am.weaver.editors.DateTimeCellEditor;
@@ -75,11 +76,12 @@ public class DataTableViewerColumn extends ViewerColumn{
 				cellEditor = new TextCellEditor(viewer.getTable(), SWT.MULTI);								
 				break;
 			case Date:
-				cellEditor = new DateTimeCellEditor();
+				cellEditor = new DateTimeCellEditor(viewer.getTable());
 				break; 
-			case Enum:
+			case Enum:								
 				Object value = row.get(columnId);
-				Object[] enums = value.getClass().getEnumConstants(); 
+				Object[] enums = value.getClass().getEnumConstants();
+																	 
 				String[] enumStrings = new String[enums.length];		
 				for(int i = 0; i < enums.length; i++ ){
 					enumStrings[i] = enums[i].toString();

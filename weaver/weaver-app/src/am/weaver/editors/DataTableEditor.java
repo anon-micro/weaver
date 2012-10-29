@@ -37,7 +37,7 @@ public class DataTableEditor extends EditorPart {
 				TableColumn col = createColumn(id);
 				col.setText(id);
 				col.setWidth(100);
-				col.setResizable(true);
+				col.setResizable(false);
 			}
 
 		}

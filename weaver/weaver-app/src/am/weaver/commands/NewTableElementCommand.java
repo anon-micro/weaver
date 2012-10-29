@@ -8,6 +8,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import am.weaver.datasource.ColumnDefinition;
+import am.weaver.datasource.ColumnType;
 import am.weaver.datasource.DefinitionTable;
 import am.weaver.datasource.Row;
 import am.weaver.datasource.Table;
@@ -34,16 +36,17 @@ public class NewTableElementCommand extends AbstractHandler{
 			 * The input of the dialog is not validated
 			 */
 			
-			if(dialog.open() == Window.OK){				
-				Object[] data = new Object[table.getColumns().size()];
-				data[0] = dialog.getCellValue();
-				table.addRow(data);
-				
+			if(dialog.open() == Window.OK){																
 				if(table instanceof DefinitionTable){
+					table.addRow(new ColumnDefinition(dialog.getCellValue(), "", ColumnType.String));
 					editor.getDefinitionTableEditor().getViewer().refresh();
 					editor.getDataTableEditor().updateViewer();					
 				}
 				else {
+					Object[] data = new Object[table.getColumns().size()];
+					data[0] = dialog.getCellValue();
+					
+					table.addRow(data);
 					editor.getDataTableEditor().getViewer().refresh();
 				}
 			}

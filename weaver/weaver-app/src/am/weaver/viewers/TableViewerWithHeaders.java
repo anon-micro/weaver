@@ -126,7 +126,7 @@ public class TableViewerWithHeaders {
 		rows.getTable().setHeaderVisible(true);
 
 		table = new TableViewer(parent, SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
-		table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));
+		table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));		
 		table.getTable().setHeaderVisible(true);
 		
 		textLayout = new TextLayout(Display.getCurrent());
