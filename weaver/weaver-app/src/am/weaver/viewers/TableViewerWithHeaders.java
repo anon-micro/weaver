@@ -6,10 +6,12 @@ import java.util.Collection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -26,7 +28,10 @@ public class TableViewerWithHeaders {
 	private Composite parent;
 	private TableViewer rows;
 	private TableViewer table;
-
+	
+	private int cellHeight  = 0;
+	private TextLayout textLayout;
+	
 	public TableViewerWithHeaders(Composite parent) {
 		this.parent = parent;
 		createViewers(parent);
@@ -123,7 +128,9 @@ public class TableViewerWithHeaders {
 		table = new TableViewer(parent, SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
 		table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));
 		table.getTable().setHeaderVisible(true);
-						
+		
+		textLayout = new TextLayout(Display.getCurrent());
+		textLayout.setFont(table.getTable().getFont());
 		
 		// Make selection the same in both tables
 		rows.getTable().addListener(SWT.Selection, new Listener() {
@@ -138,12 +145,37 @@ public class TableViewerWithHeaders {
 			}
 		});
 		
-//		rows.getTable().addListener(SWT.MeasureItem, new Listener() {
-//			   public void handleEvent(Event event) {
-//			      // height cannot be per row so simply set
-//			      event.height = 40;
-//			   }
-//			});
+		rows.getTable().addListener(SWT.MeasureItem, new Listener() {
+			   public void handleEvent(Event event) {				  
+				   textLayout.setText(((TableItem)event.item).getText());
+				   textLayout.setWidth(((TableItem)event.item).getBounds().width);
+					  
+				   int h = textLayout.getBounds().height;
+					  
+				   if(h > event.height){
+					   cellHeight = h;
+				   }
+				   
+				   event.height = cellHeight;
+				  
+				  
+			   }
+			});
+		
+		table.getTable().addListener(SWT.MeasureItem, new Listener() {
+			   public void handleEvent(Event event) {
+				  textLayout.setText(((TableItem)event.item).getText());
+				  textLayout.setWidth(((TableItem)event.item).getBounds().width);
+				  
+				  int h = textLayout.getBounds().height;
+				  
+				  if(h > event.height){
+					  cellHeight = h;
+				  }
+				  
+				  event.height = cellHeight;				  				  
+			   }
+			});
 		
 		ScrollBar vBarRight = table.getTable().getVerticalBar();
 		vBarRight.addListener(SWT.Selection, new Listener() {
@@ -154,21 +186,7 @@ public class TableViewerWithHeaders {
 
 		parent.setBackground(rows.getTable().getBackground());
 	}
-
-	//private void createRowHeaders() {
-		//for (TableItem item : table.getTable().getItems()) {			
-		//
-		// TableEditor editor = new TableEditor (rows.getTable());
-		// Button button = new Button (rows.getTable(), SWT.PUSH | SWT.FLAT);
-		// button.setText(item.getText());
-		// button.pack ();
-		// //editor.minimumWidth = button.getSize ().x;
-		// //editor.horizontalAlignment = SWT.LEFT;
-		// editor.grabHorizontal = true;
-		// editor.setEditor (button, item, 0);
-		//
-		//}
-	//}
+	
 
 	@SuppressWarnings("unused")
 	private void createSpacer() {

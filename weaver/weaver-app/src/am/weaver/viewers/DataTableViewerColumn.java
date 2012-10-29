@@ -13,8 +13,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.TableColumn;
 
 import am.weaver.datasource.ColumnType;
-import am.weaver.datasource.DefinitionTable;
 import am.weaver.datasource.Row;
+import am.weaver.editors.DateTimeCellEditor;
 
 public class DataTableViewerColumn extends ViewerColumn{
 	
@@ -26,7 +26,7 @@ public class DataTableViewerColumn extends ViewerColumn{
 		private String columnId;
 
 		public LabelProvider(String columnId) {
-			this.columnId = columnId;
+			this.columnId = columnId;			
 		}
 
 		@Override
@@ -34,8 +34,14 @@ public class DataTableViewerColumn extends ViewerColumn{
 			Row row = (Row) element;
 			Object value = row.get(columnId);			
 			if(value != null){
+				if(value instanceof String){
+					return (String)value;
+				}
+				else{
 					return value.toString();
-			}			
+				}
+			}
+			
 			return "";
 		}
 
@@ -65,11 +71,12 @@ public class DataTableViewerColumn extends ViewerColumn{
 						
 			switch(type){
 			case String:
-			case Script:
-				cellEditor = new TextCellEditor(viewer.getTable());
-				cellEditor.setStyle(SWT.MULTI);				
-				return cellEditor;
-				
+			case Script:				
+				cellEditor = new TextCellEditor(viewer.getTable(), SWT.MULTI);								
+				break;
+			case Date:
+				cellEditor = new DateTimeCellEditor();
+				break; 
 			case Enum:
 				Object value = row.get(columnId);
 				Object[] enums = value.getClass().getEnumConstants(); 
@@ -79,6 +86,7 @@ public class DataTableViewerColumn extends ViewerColumn{
 				}
 				
 				cellEditor = new ComboBoxCellEditor(viewer.getTable(), enumStrings);
+				break;
 			}
 			
 			return cellEditor;
@@ -104,6 +112,10 @@ public class DataTableViewerColumn extends ViewerColumn{
 				else{
 					return value.toString();
 				}
+				
+			case Date:
+				return value;
+			
 			case Enum:
 				if(value == null){
 					return 0;
@@ -132,8 +144,13 @@ public class DataTableViewerColumn extends ViewerColumn{
 			case String:
 			case Script:
 				row.set(columnId, value);
+				break;
+			case Date:
+				row.set(columnId, value);
+				break;
 			case Enum:				
 				row.set(columnId, ((ComboBoxCellEditor)cellEditor).getItems()[(Integer)value]);
+				break;
 			}
 						
 			viewer.update(element, null);
