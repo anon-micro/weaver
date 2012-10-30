@@ -82,7 +82,12 @@ public class DefinitionTable extends Table {
 			return Enum.valueOf(cl, s);
 	}
 	
-	
+	@Override
+	public void insertRow(Row row, int index){
+		super.insertRow(row, index);
+		String name = (String) row.get(ColumnDefinition.NAME);
+		this.columnNames.add(name);
+	}
 	
 	@Override
 	public void addRow(Row row) {
@@ -92,9 +97,10 @@ public class DefinitionTable extends Table {
 	}
 
 	@Override
-	public void deleteRows(Collection<Row> rows) {
-		super.deleteRows(rows);
-		for(Row row : rows)
-			this.columnNames.remove(row.get(ColumnDefinition.NAME));
+	public void deleteRows(int[] indices) {		
+		for(int i: indices)
+			this.columnNames.remove(getRows().get(i).get(ColumnDefinition.NAME));
+		
+		super.deleteRows(indices);
 	}
 }

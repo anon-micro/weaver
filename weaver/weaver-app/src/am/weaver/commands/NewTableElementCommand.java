@@ -35,10 +35,20 @@ public class NewTableElementCommand extends AbstractHandler{
 			/*
 			 * The input of the dialog is not validated
 			 */
+			int index = -1;
+			if(editor.getActiveViewer().getSelection().length > 0){
+				index = editor.getActiveViewer().getSelection().length - 1; 
+			}
 			
 			if(dialog.open() == Window.OK){																
 				if(table instanceof DefinitionTable){
-					table.addRow(new ColumnDefinition(dialog.getCellValue(), "", ColumnType.String));
+					ColumnDefinition def = new ColumnDefinition(dialog.getCellValue(), "", ColumnType.String);
+					if(index < 0){
+						table.addRow(def);
+					}
+					else{
+						table.insertRow(def, index);
+					}
 					editor.getDefinitionTableEditor().getViewer().refresh();
 					editor.getDataTableEditor().updateViewer();					
 				}
@@ -46,7 +56,13 @@ public class NewTableElementCommand extends AbstractHandler{
 					Object[] data = new Object[table.getColumns().size()];
 					data[0] = dialog.getCellValue();
 					
-					table.addRow(data);
+					if(index < 0){
+						table.addRow(data);
+					}
+					else{
+						table.insertRow(data, index);
+					}
+										
 					editor.getDataTableEditor().getViewer().refresh();
 				}
 			}

@@ -36,14 +36,26 @@ public class Table {
 
 	public List<Row> getRows() { return Collections.unmodifiableList(rows); }
 	
-	public void addRow(Row row) { 
+	public void insertRow(Row row, int index){				
+		rows.add(index, row);
+	}
+	
+	public void addRow(Row row) {		
 		rows.add(row);
 		row.setDefinitionTable(definitionTale);
+	}
+	
+	public void insertRow(Object[] data, int index){
+		insertRow(new Row(definitionTale, data), index);
 	}
 	
 	public void addRow(Object[] data) {
 		addRow(new Row(definitionTale, data));
 	}
 
-	public void deleteRows(Collection<Row> rows) { this.rows.removeAll(rows); }
+	public void deleteRows(int[] indices){ 
+		for(int i : indices){
+			this.rows.remove(i);
+		}
+	}
 }

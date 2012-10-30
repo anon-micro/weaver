@@ -19,6 +19,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 
 	public void postStartup(){
-		super.postStartup();		
+		super.postStartup();								
 	}
 }

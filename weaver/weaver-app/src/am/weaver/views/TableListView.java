@@ -46,7 +46,7 @@ public class TableListView extends ViewPart {
 		viewer.getControl().setFocus();		
 	}
 	
-	public void setInput(DataSource input){
-		viewer.setInput(input.getTableNames().toArray());
+	public void setInput(DataSource input){		
+		viewer.setInput(input.getTableNames().toArray());		
 	}
 }

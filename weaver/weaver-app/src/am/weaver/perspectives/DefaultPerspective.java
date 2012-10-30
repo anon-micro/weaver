@@ -3,6 +3,7 @@ package am.weaver.perspectives;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.ui.IPlaceholderFolderLayout;
 import org.eclipse.ui.console.IConsoleConstants;
 
 
@@ -21,9 +22,8 @@ public class DefaultPerspective implements IPerspectiveFactory {
      		
         bottom.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 		
-		IFolderLayout topLeft = layout.createFolder(
-                "topLeft", IPageLayout.LEFT, (float) 0.28, editorArea);		
-        topLeft.addView(TableListView.ID);
-                             
+        IFolderLayout topLeft = layout.createFolder(
+                "topLeft", IPageLayout.LEFT, (float) 0.28, editorArea);
+		topLeft.addView(TableListView.ID);		                              
 	}		
 }

@@ -15,27 +15,21 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="Default"
             class="am.weaver.perspectives.DefaultPerspective"
-            id="am.weaver.perspectives.Default">
+            fixed="true"
+            id="am.weaver.perspectives.Default"
+            name="Default">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="Table List"
+            allowMultiple="false"
             class="am.weaver.views.TableListView"
-            id="am.weaver.views.TableList">
+            id="am.weaver.views.TableList"
+            name="Table List"
+            restorable="false">
       </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="am.weaver.perspectives.Default">
-         <showInPart
-               id="am.weaver.views.TableList">
-         </showInPart>
-      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.ui.menus">

@@ -16,6 +16,7 @@ import am.weaver.datasource.ColumnDefinition;
 import am.weaver.datasource.ColumnType;
 import am.weaver.datasource.Row;
 import am.weaver.editors.DateTimeCellEditor;
+import am.weaver.editors.NumberCellEditor;
 
 public class DataTableViewerColumn extends ViewerColumn{
 	
@@ -75,6 +76,9 @@ public class DataTableViewerColumn extends ViewerColumn{
 			case Script:				
 				cellEditor = new TextCellEditor(viewer.getTable(), SWT.MULTI);								
 				break;
+			case Number:
+				cellEditor = new NumberCellEditor(viewer.getTable());								
+				break;
 			case Date:
 				cellEditor = new DateTimeCellEditor(viewer.getTable());
 				break; 
@@ -108,16 +112,15 @@ public class DataTableViewerColumn extends ViewerColumn{
 			switch(type){
 			case String:
 			case Script:
+			case Number:
 				if(value == null){
 					return "";
 				}
 				else{
 					return value.toString();
-				}
-				
+				}			
 			case Date:
-				return value;
-			
+				return value;			
 			case Enum:
 				if(value == null){
 					return 0;
@@ -125,7 +128,7 @@ public class DataTableViewerColumn extends ViewerColumn{
 				else{
 					ComboBoxCellEditor editor = (ComboBoxCellEditor)cellEditor;
 					for(int i = 0; i < editor.getItems().length; i++){
-						if(editor.getItems()[i].equals(value)){
+						if(editor.getItems()[i].equals(value.toString())){
 							return i;
 						}
 					}
@@ -145,11 +148,10 @@ public class DataTableViewerColumn extends ViewerColumn{
 			switch(type){
 			case String:
 			case Script:
-				row.set(columnId, value);
-				break;
+			case Number:
 			case Date:
 				row.set(columnId, value);
-				break;
+				break;							
 			case Enum:				
 				row.set(columnId, ((ComboBoxCellEditor)cellEditor).getItems()[(Integer)value]);
 				break;

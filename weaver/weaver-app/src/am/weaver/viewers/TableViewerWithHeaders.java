@@ -29,6 +29,7 @@ public class TableViewerWithHeaders {
 	private TableViewer rows;
 	private TableViewer table;
 	
+	private boolean changingHeight = false;
 	private int cellHeight  = 0;
 	private TextLayout textLayout;
 	
@@ -62,12 +63,14 @@ public class TableViewerWithHeaders {
 	}
 	
 	
-	public Collection<Row> getSelection(){		
-		ArrayList<Row> selection = new ArrayList<Row>();
-		for(TableItem item: table.getTable().getSelection()){			
-			selection.add((Row)item.getData());
-		}		
-		return selection;
+	public int[] getSelection(){		
+//		ArrayList<Row> selection = new ArrayList<Row>();
+//		for(TableItem item: table.getTable().getSelection()){			
+//			selection.add((Row)item.getData());
+//		}		
+//		return selection;
+		
+		return table.getTable().getSelectionIndices();
 	}
 	
 	
@@ -162,10 +165,17 @@ public class TableViewerWithHeaders {
 			   public void handleEvent(Event event) {				  				   
 				   int h = computeCellHeight((TableItem)event.item);
 				   if(h > cellHeight){
-					   cellHeight = h;
+					   cellHeight = h;					   
 				   }
 				   
-				   event.height = cellHeight;				  				  
+				   if(event.height != cellHeight){
+					   event.height = cellHeight;
+					   if(!changingHeight){
+						   changingHeight = true;
+						   table.getTable().redraw();
+						   changingHeight = false;
+					   }
+				   }
 			   }
 			});
 		
@@ -176,7 +186,14 @@ public class TableViewerWithHeaders {
 					   cellHeight = h;
 				   }
 				   
-				   event.height = cellHeight;				  				  
+				   if(event.height != cellHeight){
+					   event.height = cellHeight;
+					   if(!changingHeight){
+						   changingHeight = true;
+						   rows.getTable().redraw();
+						   changingHeight = false;
+					   }
+				   }				  				  
 			   }
 			});
 		
