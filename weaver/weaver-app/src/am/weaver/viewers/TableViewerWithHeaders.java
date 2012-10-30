@@ -113,6 +113,19 @@ public class TableViewerWithHeaders {
 		return tableArea.intersects(columnArea);
 	}
 	
+	private int computeCellHeight(TableItem item){
+		int height = 0;
+		for(int i = 0; i < item.getParent().getColumnCount(); i++){
+			textLayout.setText(item.getText(i));
+			textLayout.setWidth(item.getBounds(i).width);
+			int h = textLayout.getBounds().height;
+			if(height < h){
+				height = h;
+			}
+		}
+		
+		return height;
+	}
 	
 	private void createViewers(Composite parent) {
 		parent.setLayout(new FillLayout());
@@ -146,34 +159,24 @@ public class TableViewerWithHeaders {
 		});
 		
 		rows.getTable().addListener(SWT.MeasureItem, new Listener() {
-			   public void handleEvent(Event event) {				  
-				   textLayout.setText(((TableItem)event.item).getText());
-				   textLayout.setWidth(((TableItem)event.item).getBounds().width);
-					  
-				   int h = textLayout.getBounds().height;
-					  
-				   if(h > event.height){
+			   public void handleEvent(Event event) {				  				   
+				   int h = computeCellHeight((TableItem)event.item);
+				   if(h > cellHeight){
 					   cellHeight = h;
 				   }
 				   
-				   event.height = cellHeight;
-				  
-				  
+				   event.height = cellHeight;				  				  
 			   }
 			});
 		
 		table.getTable().addListener(SWT.MeasureItem, new Listener() {
 			   public void handleEvent(Event event) {
-				  textLayout.setText(((TableItem)event.item).getText());
-				  textLayout.setWidth(((TableItem)event.item).getBounds().width);
-				  
-				  int h = textLayout.getBounds().height;
-				  
-				  if(h > event.height){
-					  cellHeight = h;
-				  }
-				  
-				  event.height = cellHeight;				  				  
+				   int h = computeCellHeight((TableItem)event.item);
+				   if(h > cellHeight){
+					   cellHeight = h;
+				   }
+				   
+				   event.height = cellHeight;				  				  
 			   }
 			});
 		
