@@ -1,6 +1,5 @@
 package am.weaver.perspectives;
 
-import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
@@ -17,13 +16,13 @@ public class DefaultPerspective implements IPerspectiveFactory {
 	public void createInitialLayout(IPageLayout layout) {				
 		String editorArea = layout.getEditorArea();
 		
-		IFolderLayout bottom = layout.createFolder(
+		IPlaceholderFolderLayout bottom = layout.createFolder(
         		"bottom", IPageLayout.BOTTOM, (float) 0.65, editorArea);
      		
-        bottom.addView(IConsoleConstants.ID_CONSOLE_VIEW);
+        bottom.addPlaceholder(IConsoleConstants.ID_CONSOLE_VIEW);
 		
-        IFolderLayout topLeft = layout.createFolder(
+        IPlaceholderFolderLayout topLeft = layout.createFolder(
                 "topLeft", IPageLayout.LEFT, (float) 0.28, editorArea);
-		topLeft.addView(TableListView.ID);		                              
+		topLeft.addPlaceholder(TableListView.ID);		                              
 	}		
 }

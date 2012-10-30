@@ -62,11 +62,17 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 									
-		IConsoleView consoleView = (IConsoleView) page.findView(IConsoleConstants.ID_CONSOLE_VIEW);						
-		consoleView.display(console);
-					 
-		TableListView tableListView = (TableListView) page.findView((TableListView.ID));
-		tableListView.setInput(Activator.getDefault().getDataSource());		
-		
+		IConsoleView consoleView;
+		try {
+			consoleView = (IConsoleView) page.showView(IConsoleConstants.ID_CONSOLE_VIEW);
+			consoleView.display(console);
+			
+			TableListView tableListView = (TableListView) page.showView((TableListView.ID));
+			tableListView.setInput(Activator.getDefault().getDataSource());
+			
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 }
