@@ -101,13 +101,13 @@
             commandId="am.weaver.commands.NewTableElement"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+I">
+            sequence="Ctrl+I">
       </key>
       <key
             commandId="am.weaver.commands.DeleteTableElement"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+D">
+            sequence="Ctrl+D">
       </key>
    </extension>
 
