@@ -4,14 +4,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 
-public class TableScrollAndSelectionSync implements PaintListener, SelectionListener {
+public class TableScrollAndSelectionSync implements PaintListener, SelectionListener, Listener {
 	private static Field NSPoint_x, NSPoint_y;
 	private static Constructor<?> NSPoint_new;
 	private static Method NSView_scrollPoint;
@@ -42,8 +45,12 @@ public class TableScrollAndSelectionSync implements PaintListener, SelectionList
 		this.master = master;
 		this.slave = slave;
 		oldVerticalPos = master.getClientArea().y;
-		master.addPaintListener(this);
-		master.addSelectionListener(this);
+		if(MacOS)
+			master.addPaintListener(this);
+		else
+			master.getVerticalBar().addSelectionListener(this);
+		
+		master.addListener(SWT.Selection, this);
 	}
 	
 	@Override
@@ -71,18 +78,20 @@ public class TableScrollAndSelectionSync implements PaintListener, SelectionList
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
-		else {
-			slave.setTopIndex(master.getTopIndex());
-		}		
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		slave.setSelection(master.getSelectionIndices());		
+		slave.setTopIndex(master.getTopIndex());
 	}
 
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		widgetSelected(e);
+	}
+
+	@Override
+	public void handleEvent(Event event) {
+		slave.setSelection(master.getSelectionIndices());		
 	}
 }

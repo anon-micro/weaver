@@ -2,8 +2,6 @@ package am.weaver.viewers;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -46,19 +44,10 @@ public class TableViewerWithHeaders {
 	public void setInput(Object input) {
 		rowHeaderViewer.setInput(input);
 		tableBodyViewer.setInput(input);
-
-		//createRowHeaders();
-		// createSpacer();
 	}
 	
 	
 	public int[] getSelection(){		
-//		ArrayList<Row> selection = new ArrayList<Row>();
-//		for(TableItem item: table.getTable().getSelection()){			
-//			selection.add((Row)item.getData());
-//		}		
-//		return selection;
-		
 		return tableBodyViewer.getTable().getSelectionIndices();
 	}
 	
@@ -121,47 +110,41 @@ public class TableViewerWithHeaders {
 		tableBody.setHeaderVisible(true);
 		tableBody.setLinesVisible(true);
 		
-		rowHeader.addMouseWheelListener(new MouseWheelListener() {
-			public void mouseScrolled(MouseEvent e) {
-				rowHeader.setTopIndex(rowHeader.getTopIndex() - e.count);
-			}
-		});
+//		rowHeader.addMouseWheelListener(new MouseWheelListener() {
+//			public void mouseScrolled(MouseEvent e) {
+//				rowHeader.setTopIndex(rowHeader.getTopIndex() - e.count);
+//			}
+//		});
+		
+		rowHeaderViewer = new TableViewer(rowHeader);
+		tableBodyViewer = new TableViewer(tableBody);
 		
 		// Horizontal bar on second table takes up a little extra space.
 		// To keep vertical scroll bars in sink, force table1 to end above
 		// horizontal scrollbar
 		final Label spacer = new Label(parent, SWT.NONE);
 		final ScrollBar hBarRight = tableBody.getHorizontalBar();
-		spacer.setVisible(!hBarRight.isVisible());
+		updateSpacer(spacer, hBarRight);
 		
 		tableBody.addListener(SWT.Paint, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				if(hBarRight.isVisible() != spacer.isVisible()) {
-					GridData spacerData = new GridData(SWT.LEFT, SWT.FILL, false, false);
-					spacerData.heightHint = hBarRight.isVisible() ? hBarRight.getSize().y : 0;
-					spacer.setLayoutData(spacerData);
-					spacer.setVisible(hBarRight.isVisible());
+					updateSpacer(spacer, hBarRight);
 				}
 			}
 		});		
 		
-		new TableScrollAndSelectionSync(rowHeader, tableBody);
+//		new TableScrollAndSelectionSync(rowHeader, tableBody);
 		new TableScrollAndSelectionSync(tableBody, rowHeader);
-		
-		rowHeaderViewer = new TableViewer(rowHeader);
-		tableBodyViewer = new TableViewer(tableBody);
 
 		parent.setBackground(rowHeader.getBackground());
 	}
 	
-
-	@SuppressWarnings("unused")
-	private void createSpacer() {
-		Label spacer = new Label(parent, SWT.NONE);
-		GridData spacerData = new GridData();
-		spacerData.heightHint = tableBodyViewer.getTable().getHorizontalBar().getSize().y;
-		spacer.setVisible(false);
-
+	private void updateSpacer(final Label spacer, final ScrollBar hBarRight) {
+		GridData spacerData = new GridData(SWT.LEFT, SWT.FILL, false, false);
+		spacerData.heightHint = hBarRight.isVisible() ? hBarRight.getSize().y : 0;
+		spacer.setLayoutData(spacerData);
+		spacer.setVisible(hBarRight.isVisible());
 	}
 }
